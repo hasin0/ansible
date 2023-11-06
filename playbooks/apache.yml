@@ -1,0 +1,24 @@
+- name: Install Apache
+  hosts: qa # Replace with your target server's hostname or IP address
+  become: yes # Use sudo to become a superuser
+  tasks:
+  - name: Update APT package cache
+    apt:
+      update_cache: yes
+
+  - name: Install Apache
+    apt:
+      name: apache2
+      state: present
+
+  - name: Start Apache service
+    service:
+      name: apache2
+      state: started
+
+
+
+  - name: Deploy Hello World HTML file
+    copy:
+      content: "<html><body><h1>Hello, World!from Hassan </h1></body></html>"
+      dest: /var/www/html/index.html

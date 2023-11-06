@@ -1,6 +1,8 @@
-- hosts: qa
+- hosts: dev
+  vars_files:
+  - vars.yml
+  vars:
+    variable1: "playBookValue"
   tasks:
-  - name: Execute shell Commands
-    shell: uname
-    register: uname_result
-  - debug: msg="{{ uname_result }}"
+  - name: Variable Value
+    debug: msg="Value is {{ variable1 }}"

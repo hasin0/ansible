@@ -1,0 +1,5 @@
+- import_playbook: 01-ping.yml
+
+- import_playbook: shell.yml
+
+- import_playbook: variables.yml

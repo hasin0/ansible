@@ -1,0 +1,9 @@
+- hosts: qa
+  tasks:
+  - name: kernel
+    debug: msg="{{ ansible_kernel }}"
+  - name: kernel
+    debug: msg="{{ ansible_hostname }}"
+  - name: kernel
+    debug: msg="{{ ansible_distribution }}"
+
