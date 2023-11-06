@@ -1,0 +1,10 @@
+- hosts: all
+  tasks:
+  - name: ping All Servers
+    action: ping
+  - debug: msg="lol"
+
+
+- hosts: qa3
+  tasks:
+  - debug: msg="try again"
