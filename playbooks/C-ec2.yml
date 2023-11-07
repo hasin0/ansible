@@ -1,0 +1,77 @@
+- name: Install Apache and MySQL
+  hosts: dev # Replace with your target server's hostname or IP address
+  become: yes # Use sudo to become a superuser
+
+  tasks:
+  - name: Update APT package cache
+    apt:
+      update_cache: yes
+
+  - name: Install Apache
+    apt:
+      name: apache2
+      state: present
+
+  - name: Start Apache service
+    service:
+      name: apache2
+      state: started
+
+  - name: Install MySQL Server
+    apt:
+      name: mysql-server
+      state: present
+
+  - name: Start MySQL service
+    service:
+      name: mysql
+      state: started
+
+  - name: Secure MySQL installation (optional)
+    command: mysql_secure_installation
+    # Enter interactive mode to secure MySQL installation; you may need to add the necessary commands
+
+  - name: Create MySQL database
+    mysql_db:
+      name: mydatabase
+      state: present
+      login_user: root
+      login_password: your_mysql_root_password
+      login_host: localhost
+
+  - name: Create MySQL user
+    mysql_user:
+      name: myuser
+      password: mypassword
+      priv: 'mydatabase.*:ALL'
+      login_user: root
+      login_password: your_mysql_root_password
+      login_host: localhost
+
+  - name: Deploy Hello World HTML file
+    copy:
+      content: "<html><body><h1>Hello, World!from Hassan</h1></body></html>"
+      dest: /var/www/html/index.html
+
+
+# - hosts: localhost
+#   tasks:
+#   - name: Launch an EC2 instance
+#     ec2:
+#     key_name: devopsproject # Replace with your AWS key pair name (provide the correct file path)
+#     group: ansibleSG # Replace with your security group name
+#     instance_type: t2.micro # Choose your desired instance type
+#     image: ami-0e83be366243f524a # Replace with the desired AMI ID
+#     region: us-east-2 # Replace with your desired AWS region
+#     count: 1
+#     instance_tags:
+#       Name: ansible-created
+#     register: ec2_output
+#   - debug: var=ec2_output
+
+
+
+
+# - hosts: qa3
+#   tasks:
+#   - debug: msg="try again"
